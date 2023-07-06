@@ -258,11 +258,9 @@ export class RecordService {
       records.splice(position - 1, 0, recordInfo)
       Logger.info(...this.getLogString(previousIndex + 1, position, previousTime, time, player, recType))
       if (MapService.current.isInLapsMode && !isLap) {
-        void this.repo.update(recordInfo.map, recordInfo.login,
-          recordInfo.time, recordInfo.checkpoints, recordInfo.date, MapService.current.lapsAmount)
+        void this.repo.add(MapService.current.lapsAmount, recordInfo)
       } else {
-        void this.repo.update(recordInfo.map, recordInfo.login,
-          recordInfo.time, recordInfo.checkpoints, recordInfo.date)
+        void this.repo.add(null, recordInfo)
       }
       return position > this.maxLocalsAmount ? undefined : recordInfo
     }
