@@ -105,7 +105,7 @@ export class RecordRepository extends Repository {
       lapCondition = `AND laps=$${mapIds.length + 1}`
     }
     if (mapIds.length === 0) { return [] }
-    const query = `SELECT uid, players.login, time, checkpoints, date, nickname, region, wins, time_played, 
+    const query = `SELECT DISTINCT ON (${table}.player_id) uid, players.login, time, checkpoints, date, nickname, region, wins, time_played, 
     visits, is_united, last_online, average, privilege FROM ${table}
     JOIN map_ids ON map_ids.id=${table}.map_id
     JOIN players ON players.id=${table}.player_id
