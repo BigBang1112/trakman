@@ -112,7 +112,7 @@ export class RecordRepository extends Repository {
     LEFT JOIN privileges ON privileges.login=players.login
     WHERE (${mapIds.map((a, i) => `map_id=$${i + 1} OR `).join(' ').slice(0, -3)}) ${lapCondition}
     ORDER BY time ASC,
-    date ASC;`
+    date ASC, ${table}.player_id ASC;`
     let res: any[]
     if (laps === null) {
       res = (await this.query(query, ...mapIds.map(a => a.id)))
